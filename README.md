@@ -6,29 +6,15 @@ A discrete, synchronous buck converter utilizing a digital closed-loop control s
 
 The system consists of a Python-modeled physical plant, an LTspice circuit verification stage, and firmware executing real-time digital current/voltage control loops.
 
-   +-------------------------------------------------+
-   |                 Python Model                    |
-   |  - LC Filter Plant Derivation (scipy.signal)    |
-   |  - Bilinear/Tustin Discretization               |
-   |  - Compensator Coefficient Optimization         |
-   +-------------------------------------------------+
-                           |
-                           v
-   +-------------------------------------------------+
-   |               LTspice Simulation                |
-   |  - Gate Driver & Bootstrap Verification         |
-   |  - Switching Loss & Transient Analysis          |
-   +-------------------------------------------------+
-                           |
-                           v
-   +-------------------------------------------------+
-   |             Hardware Implementation             |
-   |  - Microcontroller (MCU) executing C++ ISR      |
-   |  - Custom Op-Amp Current Sense Front-End        |
-   |  - Discrete MOSFET Synchronous Power Stage      |
-   +-------------------------------------------------+
+```mermaid
+graph LR
+    A["1. Python Model<br>(Math & Controls)"] ---> B["2. LTspice<br>(Circuit Simulation)"]
+    B ---> C["3. Physical Hardware<br>(MCU & Power PCB)"]
 
-
+    %% Minimalist Styling
+    classDef minimal fill:#f9f9f9,stroke:#333,stroke-width:1px,color:#000;
+    class A,B,C minimal;
+```
 ## Features & Project Milestones
 
 - [ ] **Mathematical Modeling:** Continuous-time transfer function derivation of a second-order LC low-pass filter with non-ideal capacitor ESR.
